@@ -26,7 +26,7 @@ bourbon.get("/bourbons", (req, res) => {
 bourbon.get("/flavor", (req, res) => {
   let flavor = req.query.flavor;
   console.log(flavor);
-  let query = `SELECT * FROM bourbon WHERE UPPER(description) LIKE UPPER('%${flavor}%') LIMIT 10`;
+  let query = `SELECT * FROM bourbon WHERE UPPER(description) LIKE UPPER('%${flavor}%') ORDER BY RANDOM() LIMIT 10`;
   pool.query(query).then((response) => {
     res.json(response.rows);
   });
