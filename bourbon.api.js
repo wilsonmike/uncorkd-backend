@@ -1,4 +1,5 @@
 "use strict";
+const { urlencoded } = require("express");
 const express = require("express");
 const bourbon = express.Router();
 const pool = require("./connection");
@@ -30,6 +31,26 @@ bourbon.get("/flavor", (req, res) => {
   pool.query(query).then((response) => {
     res.json(response.rows);
   });
+});
+
+bourbon.post("/bourbons", (req, res) => {
+  pool.query(
+    `INSERT INTO user_rating (bourbon_id, username, rating) VALUES ($1, $2, $3)`,
+    [
+      parseInt(req.body.bourbon_id),
+      req.body.username,
+      parseInt(req.body.rating),
+    ],
+    (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ status: "error" });
+        console.log(req.body);
+      } else {
+        res.status(200).json({ status: "ok" });
+      }
+    }
+  );
 });
 
 module.exports = bourbon;
