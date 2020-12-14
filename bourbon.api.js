@@ -58,4 +58,11 @@ bourbon.post("/bourbons", (req, res) => {
   );
 });
 
+bourbon.get("/feed", (req, res) => {
+  let query = `SELECT * FROM user_rating`;
+  pool.query(query).then((response) => {
+    res.json(response.rows);
+  });
+});
+
 module.exports = bourbon;
