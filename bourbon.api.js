@@ -35,7 +35,7 @@ bourbon.get("/flavor", (req, res) => {
 
 bourbon.post("/bourbons", (req, res) => {
   pool.query(
-    `INSERT INTO user_rating (bourbon_id, username, rating, displayName, brand, img_url) VALUES ($1, $2, $3, $4, $5,$6)`,
+    `INSERT INTO user_rating (bourbon_id, username, rating, displayName, brand, img_url, photo_url, user_comment) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
     [
       parseInt(req.body.bourbon_id),
       req.body.username,
@@ -43,6 +43,8 @@ bourbon.post("/bourbons", (req, res) => {
       req.body.displayName,
       req.body.brand,
       req.body.img_url,
+      req.body.photo_url,
+      req.body.user_comment,
     ],
     (error) => {
       if (error) {
