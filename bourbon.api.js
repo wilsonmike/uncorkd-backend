@@ -6,11 +6,18 @@ const pool = require("./connection");
 
 //For trending
 bourbon.get("/trending", (req, res) => {
-  let query = `SELECT * FROM bourbon WHERE description LIKE '%vanilla%' LIMIT 10;`;
+  let query = `SELECT * FROM bourbon   
+ORDER BY RANDOM ()  
+LIMIT 20`;
   pool.query(query).then((response) => {
     res.json(response.rows);
   });
 });
+// `SELECT * FROM bourbon WHERE description LIKE '%vanilla%' LIMIT 10;`
+
+// SELECT column FROM table
+// ORDER BY RANDOM ()
+// LIMIT 1
 
 //For search bar
 bourbon.get("/bourbons", (req, res) => {
@@ -27,7 +34,7 @@ bourbon.get("/bourbons", (req, res) => {
 bourbon.get("/flavor", (req, res) => {
   let flavor = req.query.flavor;
   console.log(flavor);
-  let query = `SELECT * FROM bourbon WHERE UPPER(description) LIKE UPPER('%${flavor}%') ORDER BY RANDOM() LIMIT 10`;
+  let query = `SELECT * FROM bourbon WHERE UPPER(description) LIKE UPPER('%${flavor}%') ORDER BY RANDOM() LIMIT 20`;
   pool.query(query).then((response) => {
     res.json(response.rows);
   });
