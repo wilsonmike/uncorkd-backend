@@ -23,7 +23,7 @@ LIMIT 20`;
 bourbon.get("/bourbons", (req, res) => {
   let term = req.query.term;
   console.log(term);
-  let query = `SELECT * FROM bourbon WHERE UPPER(brand) LIKE UPPER('%${term}%');`;
+  let query = `SELECT * FROM bourbon WHERE UPPER(brand) LIKE UPPER('%${term}%') OR UPPER(distillery) LIKE UPPER('%${term}%');`;
   pool.query(query).then((response) => {
     res.json(response.rows);
   });
