@@ -77,4 +77,26 @@ bourbon.get("/feed", (req, res) => {
   });
 });
 
+bourbon.post("/submit", (req, res) => {
+  pool.query(
+    `INSERT INTO submit_bourbon (brand, distillery, proof, upload_img, description) VALUES ($1, $2, $3, $4, $5)`,
+    [
+      req.body.brand,
+      req.body.distillery,
+      req.body.proof,
+      req.body.upload_img,
+      req.body.description,
+    ],
+    (error) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ status: "error" });
+        console.log(req.body);
+      } else {
+        res.status(200).json({ status: "ok" });
+      }
+    }
+  );
+});
+
 module.exports = bourbon;
