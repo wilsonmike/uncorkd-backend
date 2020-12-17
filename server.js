@@ -7,8 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/", bourbon);
-let port = 3000;
-app.listen(port, (_) =>
-  console.log(`Server running on
-port: ${port}`)
+// define the port
+const DEFAULT_PORT = 3000;
+// Use Heroku's PORT or default to 3000.
+const port = process.env.PORT || DEFAULT_PORT;
+// run the server
+app.listen(port, () =>
+  console.log(`Listening on
+port: ${port}.`)
 );
